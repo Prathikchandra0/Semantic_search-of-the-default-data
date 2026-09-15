@@ -4,7 +4,6 @@
   <img src="semantic-search-flow.gif" alt="Animated semantic search workflow" width="850">
 </p>
 
-Yes. The previous README is too **emoji-heavy and visually busy** for a technical GitHub project. A better presentation is clean, formal, and focused on the actual workflow and results.
 
 Use this as your `README.md`:
 
