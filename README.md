@@ -1,192 +1,189 @@
-🔎 Semantic Search with Sentence Transformers
+Semantic Search using Sentence Transformers
 
 <p align="center">
-  <img src="semantic-search-flow.gif" alt="Animated semantic search workflow" width="850">
+  <img src="semantic-search-demo.gif" alt="Semantic Search Demonstration" width="900">
 </p>
 
+<p align="center">
+  A practical implementation of semantic retrieval using text embeddings and cosine similarity.
+</p>
 
-Use this as your `README.md`:
+1. Overview
 
-````markdown
-# Semantic Search using Sentence Transformers
+This project implements a basic Semantic Search system using
+Sentence Transformers and cosine similarity.
 
-## Overview
+The system retrieves the most relevant documents from a knowledge base
+according to their semantic meaning, rather than relying exclusively
+on exact keyword matching.
 
-This project demonstrates a basic **Semantic Search** system using
-Sentence Transformers and Cosine Similarity.
+This implementation demonstrates the core retrieval process that is
+commonly used as part of Retrieval-Augmented Generation (RAG) systems.
 
-The system retrieves documents from a predefined knowledge base based on
-their **semantic meaning**, rather than relying only on exact keyword
-matching.
+2. Objective
 
-The implementation represents the fundamental retrieval component used
-in modern **Retrieval-Augmented Generation (RAG)** systems.
+The project is designed to demonstrate the following concepts:
 
----
+Converting text into vector embeddings
 
-## Objective
+Representing documents in a common vector space
 
-The objective of this project is to understand how a semantic search
-system can:
+Encoding a user query
 
-1. Convert text into numerical embeddings.
-2. Represent documents in a vector space.
-3. Convert a user query into an embedding.
-4. Measure similarity between the query and documents.
-5. Rank documents according to their similarity.
-6. Retrieve the most relevant documents using Top-K search.
+Measuring semantic similarity
 
----
+Ranking documents by similarity
 
-## Technologies Used
+Retrieving the Top-K relevant documents
 
-| Technology | Purpose |
-|------------|---------|
-| Python | Implementation |
-| Sentence Transformers | Text embedding generation |
-| all-MiniLM-L6-v2 | Pre-trained embedding model |
-| NumPy | Vector and mathematical operations |
-| Cosine Similarity | Measuring semantic similarity |
-| Jupyter Notebook | Development and experimentation |
+3. Technologies
 
----
+Technology
 
-## System Workflow
+Purpose
 
-```text
-                    User Query
-                        |
-                        v
-              Sentence Transformer
-                        |
-                        v
-                 Query Embedding
-                        |
-                        v
-             +----------------------+
-             | Cosine Similarity     |
-             |                      |
-             | Query vs Documents   |
-             +----------------------+
-                        |
-                        v
-                Similarity Scores
-                        |
-                        v
-                  Sort Results
-                        |
-                        v
-                   Top-K Results
-````
+Python
 
----
+Core implementation
 
-## Knowledge Base
+Sentence Transformers
 
-The project uses a small knowledge base containing machine-learning
-concepts such as:
+Text embedding generation
 
-* Linear Regression
-* Decision Trees
-* Random Forests
-* Overfitting
-* Cross-Validation
-* Feature Scaling
-* Logistic Regression
-* K-Means Clustering
-* Gradient Descent
-* Regularization
-* Confusion Matrix
-* Precision
-* Recall
-* ROC Curve
-* SMOTE
+all-MiniLM-L6-v2
 
-Each document is converted into an embedding before performing the
-search.
+Pre-trained embedding model
 
----
+NumPy
 
-## Embedding Generation
+Vector operations
 
-The project uses the following Sentence Transformer model:
+Cosine Similarity
 
-```python
+Similarity measurement
+
+Jupyter Notebook
+
+Development and experimentation
+
+4. How the System Works
+
+                     USER QUERY
+                          |
+                          v
+               Sentence Transformer
+                          |
+                          v
+                   Query Embedding
+                          |
+                          v
+              +-----------------------+
+              |  Cosine Similarity    |
+              |                       |
+              | Query vs Every Doc    |
+              +-----------+-----------+
+                          |
+                          v
+                  Similarity Scores
+                          |
+                          v
+                    Sort Results
+                          |
+                          v
+                       Top-K
+                          |
+                          v
+                Relevant Documents
+
+Process
+
+A knowledge base is created containing machine-learning concepts.
+
+Each document is converted into an embedding.
+
+The user's query is converted into an embedding.
+
+The query embedding is compared with every document embedding.
+
+Cosine similarity produces a score for each document.
+
+Documents are sorted by their similarity scores.
+
+The highest-ranked Top-K documents are returned.
+
+5. Knowledge Base
+
+The current knowledge base contains information about:
+
+Linear Regression
+
+Decision Trees
+
+Random Forests
+
+Overfitting
+
+Cross-Validation
+
+Feature Scaling
+
+Logistic Regression
+
+K-Means Clustering
+
+Gradient Descent
+
+Regularization
+
+Confusion Matrix
+
+Precision
+
+Recall
+
+ROC Curve
+
+SMOTE
+
+6. Embeddings
+
+The project uses:
+
+from sentence_transformers import SentenceTransformer
+
 model = SentenceTransformer(
     "sentence-transformers/all-MiniLM-L6-v2"
 )
-```
 
-The knowledge-base documents are converted into embeddings using:
+The knowledge-base documents are encoded using:
 
-```python
 kb_embeddings = model.encode(knowledge_base)
-```
 
 Conceptually:
 
-```text
-Document
-   |
-   v
+Text
+  |
+  v
 Sentence Transformer
-   |
-   v
-Numerical Vector
-```
+  |
+  v
+Numerical Embedding
 
 For example:
 
-```text
 "Overfitting occurs when a model memorizes training data."
                          |
                          v
-              [0.12, -0.43, 0.87, ...]
-```
+             [0.12, -0.43, 0.87, ...]
 
-The numerical vector represents the semantic characteristics of the
-sentence.
+The embedding represents the sentence as a vector in a numerical
+semantic space.
 
----
+7. Cosine Similarity
 
-## Semantic Search Process
+The project compares the query embedding with each document embedding
+using cosine similarity:
 
-When a user enters a query, the query is also converted into an
-embedding:
-
-```python
-query_emb = model.encode(query)
-```
-
-The query embedding is then compared with every document embedding.
-
-```text
-Query Embedding
-       |
-       +------------------+
-       |                  |
-       v                  v
-Document 1           Document 2
-       |                  |
-       +--------+---------+
-                |
-                v
-       Cosine Similarity
-                |
-                v
-        Similarity Scores
-```
-
----
-
-## Cosine Similarity
-
-Cosine similarity measures the similarity between two vectors based on
-the angle between them.
-
-The implementation uses:
-
-```python
 def cosine_similarity(vec1, vec2):
 
     vec1, vec2 = np.array(vec1), np.array(vec2)
@@ -194,134 +191,159 @@ def cosine_similarity(vec1, vec2):
     return float(np.dot(vec1, vec2)) / (
         np.linalg.norm(vec1) * np.linalg.norm(vec2)
     )
-```
 
-A higher similarity score indicates that two embeddings are more closely
-related in the embedding space.
+Conceptually:
 
-The score is primarily used to **rank the retrieved documents**.
+Query Vector
+      |
+      |-------------------+
+      |                   |
+      v                   v
+Document Vector 1   Document Vector 2
+      |                   |
+      +---------+---------+
+                |
+                v
+       Cosine Similarity
+                |
+                v
+         Similarity Score
 
----
+A higher score indicates greater similarity in the embedding space.
+The score is used primarily to rank the retrieved documents.
 
-## Ranking and Top-K Retrieval
+8. Ranking and Top-K Retrieval
 
-For every document, the system stores:
+Each comparison produces:
 
-```python
 (similarity_score, document_index)
-```
 
-Example:
+For example:
 
-```text
-Similarity       Document Index
---------------------------------
-0.91             3
-0.84             9
-0.78             4
-0.65             1
-0.52             7
-```
+Similarity     Index
+--------------------
+0.91           3
+0.84           9
+0.78           4
+0.65           1
+0.52           7
 
-The results are sorted in descending order:
+The results are sorted:
 
-```python
 result.sort(reverse=True)
-```
 
 If:
 
-```python
 top_k = 3
-```
 
-only the three highest-ranked documents are returned.
+the system returns:
 
-```python
 result[:top_k]
-```
 
----
+This gives the three highest-ranked documents.
 
-## Example
+9. Practical Example
 
-### Input Query
+Query
 
-```text
 How do I stop my model from memorizing the data?
-```
 
 The knowledge base does not contain this exact sentence.
 
-However, it contains information about **overfitting**:
+However, it contains:
 
-```text
-Overfitting happens when a model memorizes the training
-data including noise, performing great on training but
-poorly on new data.
-```
+Overfitting happens when a model memorizes the training data
+including noise, performing great on training but poorly on new data.
 
-The semantic search system identifies this document because the
-**meaning of the query is related to the meaning of the document**.
+Semantic search can identify the relationship between the query and
+this document even though the wording is different.
 
-### Retrieval Result
+A possible retrieval result is:
 
-| Rank | Topic            | Relevance |
-| ---- | ---------------- | --------- |
-| 1    | Overfitting      | High      |
-| 2    | Regularization   | High      |
-| 3    | Cross-Validation | Related   |
+Rank
+
+Document
+
+Relationship
+
+1
+
+Overfitting
+
+Directly related
+
+2
+
+Regularization
+
+Related
+
+3
+
+Cross-Validation
+
+Related
 
 The exact similarity values depend on the embedding model and input.
 
----
+10. Semantic Search vs Keyword Search
 
-## Keyword Search vs Semantic Search
+Characteristic
 
-| Feature                    | Keyword Search | Semantic Search |
-| -------------------------- | -------------- | --------------- |
-| Matching method            | Exact words    | Meaning         |
-| Requires same wording      | Usually        | No              |
-| Uses embeddings            | No             | Yes             |
-| Handles paraphrasing       | Limited        | Better          |
-| Vector similarity          | No             | Yes             |
-| Suitable for RAG retrieval | Limited        | Common approach |
+Keyword Search
 
-### Example
+Semantic Search
 
-Keyword-based search:
+Primary basis
 
-```text
+Matching words
+
+Meaning represented by embeddings
+
+Exact wording
+
+More important
+
+Less important
+
+Embeddings
+
+Not required
+
+Required
+
+Paraphrased queries
+
+Can be difficult
+
+Better suited
+
+Vector similarity
+
+No
+
+Yes
+
+RAG retrieval
+
+Can be used
+
+Common approach
+
+Example
+
 Query:
-"model memorizing data"
 
-Document:
-"Overfitting occurs when a model memorizes training data."
+Why does my model remember the training examples too well?
 
-Result:
-Possible keyword match
-```
+Relevant document:
 
-Semantic search:
+Overfitting occurs when a model memorizes training data.
 
-```text
-Query:
-"Why does my model remember the training examples too well?"
+The wording is different, but the underlying concept is similar.
 
-Document:
-"Overfitting occurs when a model memorizes training data."
+11. Core Implementation
 
-Result:
-Semantically related
-```
-
----
-
-## Implementation
-
-The complete search process is implemented using:
-
-```python
 def semantic_Search(query, top_k=3):
 
     query_emb = model.encode(query)
@@ -342,13 +364,15 @@ def semantic_Search(query, top_k=3):
         print(knowledge_base[idx])
 
     return result[:top_k]
-```
 
----
+Example:
 
-## Architecture
+semantic_Search(
+    "how do I stop my model from memorizing the data"
+)
 
-```text
+12. Project Architecture
+
 +----------------------+
 |    Knowledge Base    |
 +----------+-----------+
@@ -363,180 +387,135 @@ def semantic_Search(query, top_k=3):
 | Document Embeddings  |
 +----------+-----------+
            |
-           |
-           |              +----------------+
-           |              |   User Query   |
-           |              +-------+--------+
-           |                      |
-           |                      v
-           |              +----------------------+
-           |              | Sentence Transformer |
-           |              +----------+-----------+
+           |                 +----------------+
+           |                 |   User Query   |
+           |                 +-------+--------+
            |                         |
            |                         v
-           |                Query Embedding
-           |                         |
-           +------------+------------+
-                        |
-                        v
-              +--------------------+
-              | Cosine Similarity  |
-              +---------+----------+
-                        |
-                        v
-              +--------------------+
-              | Similarity Ranking |
-              +---------+----------+
-                        |
-                        v
-              +--------------------+
-              |    Top-K Results   |
-              +--------------------+
-```
+           |                 +----------------------+
+           |                 | Sentence Transformer |
+           |                 +----------+-----------+
+           |                            |
+           |                            v
+           |                     Query Embedding
+           |                            |
+           +-------------+--------------+
+                         |
+                         v
+                +-------------------+
+                | Cosine Similarity |
+                +---------+---------+
+                          |
+                          v
+                +-------------------+
+                |  Rank Documents   |
+                +---------+---------+
+                          |
+                          v
+                +-------------------+
+                |    Top-K Results  |
+                +-------------------+
 
----
+13. Relationship to RAG
 
-## Relation to RAG
+This project implements the retrieval stage of a RAG pipeline.
 
-Semantic search represents the **retrieval component** of a RAG system.
+Current project
 
-This project:
-
-```text
 User Query
-     |
-     v
+    |
+    v
 Semantic Search
-     |
-     v
+    |
+    v
 Relevant Documents
-```
 
-A complete RAG system extends this process:
+Extended RAG system
 
-```text
 User Query
-     |
-     v
+    |
+    v
 Semantic Search
-     |
-     v
+    |
+    v
 Relevant Documents
-     |
-     v
+    |
+    v
 LLM + Retrieved Context
-     |
-     v
+    |
+    v
 Generated Answer
-```
 
-Therefore, this project provides the foundation for understanding how
-documents can be retrieved before supplying them as context to a
-language model.
+The current implementation therefore provides a foundation for building
+a complete RAG application.
 
----
+14. Installation
 
-## Project Structure
+Install the required packages:
 
-```text
-Semantic_Search/
-|
-+-- Semantic_Search.ipynb
-+-- README.md
-+-- semantic-search-flow.gif
-```
-
----
-
-## Installation
-
-Install the required libraries:
-
-```bash
 pip install sentence-transformers numpy
-```
 
-Then open:
+Open:
 
-```text
 Semantic_Search.ipynb
-```
 
 and execute the notebook cells sequentially.
 
----
+15. Project Structure
 
-## Key Concepts Demonstrated
+Semantic_Search/
+│
+├── Semantic_Search.ipynb
+├── README.md
+└── semantic-search-demo.gif
 
-* Text Embeddings
-* Sentence Transformers
-* Vector Representation
-* Cosine Similarity
-* Semantic Similarity
-* Document Ranking
-* Top-K Retrieval
-* Knowledge Base Retrieval
-* Foundations of RAG
+16. Concepts Demonstrated
 
----
+Text Embeddings
 
-## Future Improvements
+Sentence Transformers
 
-The current implementation can be extended by:
+Vector Representation
 
-1. Adding a larger document collection.
-2. Implementing document chunking.
-3. Adding a vector database.
-4. Introducing similarity thresholds.
-5. Integrating an LLM for answer generation.
-6. Building a complete RAG pipeline.
-7. Exposing the search system through a REST API.
-8. Creating a web-based user interface.
-
----
-
-## Conclusion
-
-This project demonstrates how semantic search can retrieve relevant
-information based on **meaning rather than exact keyword matching**.
-
-It provides a practical introduction to embeddings, vector similarity,
-document ranking, and the retrieval stage of RAG systems.
-
-````
-
-### I would also change the GitHub layout
-
-Instead of making the GIF the main visual element, keep the README **professional**:
-
-```text
-# Semantic Search using Sentence Transformers
-
-Overview
-   ↓
-Objective
-   ↓
-Technologies
-   ↓
-System Workflow
-   ↓
-Knowledge Base
-   ↓
-Embedding Generation
-   ↓
 Cosine Similarity
-   ↓
-Ranking & Top-K
-   ↓
-Practical Example
-   ↓
-Architecture
-   ↓
-RAG Connection
-   ↓
-Installation
-   ↓
-Future Improvements
-````
 
-This presentation makes it much clearer that **you built a semantic retrieval system**, rather than making the repository look like a generic AI demo.
+Semantic Similarity
+
+Document Ranking
+
+Top-K Retrieval
+
+Knowledge Base Retrieval
+
+Foundations of RAG
+
+17. Future Improvements
+
+Possible extensions include:
+
+Add document chunking
+
+Use a larger knowledge base
+
+Add a vector database
+
+Introduce similarity thresholds
+
+Integrate an LLM
+
+Build a complete RAG pipeline
+
+Expose the search system through FastAPI
+
+Add a web interface
+
+Compare different embedding models
+
+Conclusion
+
+This project demonstrates how semantic search retrieves information
+according to meaning rather than only matching exact words.
+
+It provides a practical foundation for understanding embeddings, vector
+similarity, ranking, Top-K retrieval, and the retrieval component of
+RAG systems.
